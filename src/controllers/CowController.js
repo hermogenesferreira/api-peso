@@ -13,6 +13,15 @@ class CowController {
     }
   }
 
+  async showMedia(req, res) {
+    try {
+      const { id } = req.params;
+      const weighing = await conn.query(`SELECT AVG(weighings.value) AS media WHERE weighings.cowId = ${id}`);
+      res.status(200).json({ weighing });
+    } catch (err) {
+      return res.json(500).json(err);
+    }
+  }
 
   async show(req, res) {
     try {
