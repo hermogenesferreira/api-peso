@@ -1,5 +1,6 @@
 import Cow from '../models/Cow';
 import Weighing from '../models/Weighing';
+const conn = require('../database/index');
 const { Op } = require('sequelize');
 
 class CowController {
@@ -9,6 +10,16 @@ class CowController {
       return res.json(cows);
     } catch (err) {
       res.status(500).json({ message: 'Internal server error.' });
+    }
+  }
+
+  async showMedia(req, res) {
+    try {
+      const { id } = req.params;
+      const weighing = await conn.query(`SELECT cows.name, cows.birth, cows.gender, cows.status, AVG(weighings.value) AS media, weighings.cowId FROM cows INNER JOIN weighings WHERE cows.id AND weighings.cowId = ${id}`);
+      res.status(200).json({ weighing });
+    } catch (err) {
+      return res.json(500).json(err);
     }
   }
 

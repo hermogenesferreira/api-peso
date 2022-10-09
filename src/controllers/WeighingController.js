@@ -2,7 +2,6 @@ import { Sequelize } from 'sequelize';
 import Cow from '../models/Cow';
 import Weighing from '../models/Weighing';
 const conn = require('../database/index');
-const conn2 = require('../database/index');
 
 
 class WeighingController {
@@ -16,19 +15,9 @@ class WeighingController {
     }
   }
 
-  async show(req, res) {
-    try {
-      const { id } = req.params;
-      const weighing = await conn.query(`SELECT cows.name, cows.birth, cows.gender, cows.status, AVG(weighings.value) AS media, weighings.cowId FROM cows INNER JOIN weighings WHERE cows.id AND weighings.cowId = ${id}`);
-      res.status(200).json({ weighing });
-    } catch (err) {
-      return res.json(500).json(err);
-    }
-  }
-
   async showWidget(req, res) {
     try {
-      const widget = await conn2.query(`SELECT (SELECT COUNT(cows.id) FROM cows) AS cows, (SELECT COUNT(weighings.id) FROM weighings) AS weighings, (SELECT AVG(weighings.value) FROM weighings) AS media`);
+      const widget = await conn.query(`SELECT (SELECT COUNT(cows.id) FROM cows) AS cows, (SELECT COUNT(weighings.id) FROM weighings) AS weighings, (SELECT AVG(weighings.value) FROM weighings) AS media`);
       res.status(200).json({ widget });
     } catch (err) {
       return res.json(500).json({message: "Internal server error"});

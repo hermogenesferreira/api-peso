@@ -10,7 +10,7 @@ routes.delete('/cow/:id', CowController.destroy);
 
 routes.get('/weighing/', WeighingController.index);
 routes.get('/weighing/widget', WeighingController.showWidget);
-routes.get('/weighing/:id', WeighingController.show);
+routes.get('/weighing/:id', CowController.showMedia);
 routes.post('/weighing/', WeighingController.create);
 routes.put('/weighing/:id', WeighingController.update);
 routes.delete('/weighing/:id', WeighingController.destroy);
