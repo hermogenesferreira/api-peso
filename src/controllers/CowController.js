@@ -18,7 +18,7 @@ class CowController {
   async showMedia(req, res) {
     try {
       const { id } = req.params;
-      const weighing = await sequelize.query("SELECT * FROM `weighings`", { type: QueryTypes.SELECT });
+      const weighing = await Weighing.query("SELECT * FROM `weighings`", { type: QueryTypes.SELECT });
       res.status(200).json({ weighing });
     } catch (err) {
       return res.json(500).json(err);
