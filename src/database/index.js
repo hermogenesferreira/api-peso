@@ -1,19 +1,17 @@
-const Sequelize = require('sequelize');
-import 'dotenv/config';
+const { Sequelize } = require("sequelize");
 
-const conn = new Sequelize(`${process.env.DB_NAME}`,
-`${process.env.DB_USER}`,
-`${process.env.DB_PASSWORD}`,
-  {
-    host: `${process.env.DB_HOST}`,
-    dialect: `${process.env.DB_DIALECT}`,
+const conn = new Sequelize(process.env.DATABASE_URL, {
+  dialectOptions: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
   },
-);
-
-conn.authenticate().then(function (){
-  console.log('Conectado ao banco de dados');
-}).catch(function (){
-  console.log('Erro ao conectar com o banco de dados');
 });
+
+//check connection (optional)
+conn
+  .authenticate()
+  .then(() => console.log("Connection has been established successfully."))
+  .catch((err) => console.error("Unable to connect to the database:", err));
 
 module.exports = conn;
