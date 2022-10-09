@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon ./src/server.js"
+    "start": "nodemon ./src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
+    "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "sequelize": "^6.23.2",
     "sucrase": "^3.27.0"
