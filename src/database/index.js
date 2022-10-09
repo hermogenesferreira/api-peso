@@ -1,6 +1,4 @@
 const Sequelize = require('sequelize');
-const fs = require('fs');
-const rdsCa = fs.readFileSync(__dirname + '/rds-combined-ca-bundle.pem');
 import 'dotenv/config';
 
 const conn = new Sequelize(`${process.env.DB_NAME}`,
