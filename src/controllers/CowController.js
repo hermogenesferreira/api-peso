@@ -1,6 +1,6 @@
 import Cow from '../models/Cow';
 import Weighing from '../models/Weighing';
-const conn = require('../database/index');
+const { conn } = require('../database/index');
 const { Op } = require('sequelize');
 
 class CowController {
