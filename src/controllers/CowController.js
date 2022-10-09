@@ -15,7 +15,6 @@ class CowController {
 
   async showMedia(req, res) {
     try {
-      const { id } = req.params;
       const weighing = await conn.query(`SELECT AVG(weighings.value) AS media FROM weighings`);
       res.status(200).json({ weighing });
     } catch (err) {
