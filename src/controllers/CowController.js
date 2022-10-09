@@ -15,9 +15,23 @@ class CowController {
 
   async showMedia(req, res) {
     try {
-      const weighing = await conn.query(`SELECT AVG(weighings.value) AS media FROM weighings`);
-      res.status(200).json({ weighing });
-    } catch (err) {
+      const { id } = req.params;
+      const media = await Cow.findByPk(id, {
+        include: [
+          {
+            model: Weighing, //including ratings array
+            as: 'weighings',
+            attributes: [], //but making it empty
+          },
+        ],
+        attributes: {
+          include: [ // this adds AVG attribute to others instead of rewriting
+            [sequelize.fn('AVG', sequelize.col('wheighings.value')), 'avgRating'],
+          ],
+        },
+      });
+      return res.json(media);
+    }catch (err) {
       return res.json(500).json(err);
     }
   }
