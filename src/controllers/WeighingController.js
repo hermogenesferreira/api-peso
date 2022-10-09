@@ -17,7 +17,7 @@ class WeighingController {
 
   async showWidget(req, res) {
     try {
-      const widget = await conn.query(`SELECT AVG(weighings.value)  AS media FROM weighings WHERE weighings.cowId = 1`);
+      const widget = await conn.query(`SELECT (SELECT COUNT(cows.id) FROM cows) AS cows, (SELECT COUNT(weighings.id) FROM weighings) AS weighings, (SELECT AVG(weighings.value) FROM weighings) AS media`);
       res.status(200).json({ widget });
     } catch (err) {
       return res.json(500).json({message: "Internal server error"});
